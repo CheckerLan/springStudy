@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    单个bean可以通过类型获得-->
+    <bean id="user" class="com.checker.entity.User">
+        <property name="uname" value="小明"/>
+        <property name="uid" value="100"/>
+    </bean>
+
+<!--    多个同类型的bean用id或id+type-->
+    <bean id="udept" class="com.checker.entity.Dept">
+        <property name="did" value="100"/>
+        <property name="dname" value="name"/>
+    </bean>
+    <bean id="udept2" class="com.checker.entity.Dept">
+        <property name="did" value="200"/>
+        <property name="dname" value="name2"/>
+    </bean>
+
+<!--    继承重用-->
+    <!--用abstract表示该bean不能被获得，只能被继承重用-->
+    <bean id="udeptParent" class="com.checker.entity.Dept" abstract="true">
+        <property name="dname" value="parent"/>
+        <property name="did" value="111"/>
+    </bean>
+    <!--用parent进行继承重用，对于udept3没有配置的信息会从udept中重用-->
+    <bean id="udept3" class="com.checker.entity.Dept" parent="udeptParent">
+        <property name="did" value="300"/>
+    </bean>
+
+</beans>

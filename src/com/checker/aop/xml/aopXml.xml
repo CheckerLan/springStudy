@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--    加入ioc容器@Component-->
+    <bean id="userDAO" class="com.checker.dao.impl.UserDAOImpl"/>
+    <bean id="xmlAopExam" class="com.checker.aop.xml.XmlAopExam"/>
+
+    <aop:config>
+        <!--抽出表达式@Pointcut-->
+        <aop:pointcut id="myPoint" expression="execution(public void com.checker.dao.impl.UserDAOImpl.add())"/>
+
+        <!--配置切面类@Aspect-->
+        <aop:aspect ref="xmlAopExam">
+
+            <aop:before method="beforeAdd" pointcut="execution(public void com.checker.dao.impl.UserDAOImpl.add())"/>
+
+            <aop:after method="afterAdd" pointcut-ref="myPoint"/>
+
+            <aop:after-returning method="afterReturingAdd" pointcut-ref="myPoint" returning="result"/>
+
+            <aop:after-throwing method="afterThrowingAdd" pointcut-ref="myPoint" throwing="exception"/>
+
+            <aop:around method="arroundAdd" pointcut-ref="myPoint"/>
+
+        </aop:aspect>
+    </aop:config>
+</beans>

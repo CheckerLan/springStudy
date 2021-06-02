@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="contEntity" class="com.checker.entity.ContEntity">
+        <!--数组注入-->
+        <property name="arr">
+            <array>
+                <value>100</value>
+                <value>一百</value>
+            </array>
+        </property>
+
+        <!--List注入-->
+        <property name="list">
+            <list>
+                <value>100</value>
+                <value>一百</value>
+            </list>
+        </property>
+
+        <!--map注入-->
+        <property name="map">
+            <map>
+                <entry key="k1" value="100"/>
+                <entry key="k2" value="一百"/>
+            </map>
+        </property>
+    </bean>
+
+<!--    用util将list提取出来-->
+    <util:list id="contlist">
+        <value>200</value>
+        <value>两百</value>
+    </util:list>
+
+    <bean id="contEntity2" class="com.checker.entity.ContEntity">
+        <property name="list" ref="contlist"/>
+    </bean>
+
+</beans>

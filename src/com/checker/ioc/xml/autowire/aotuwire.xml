@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    配置自动装配-->
+<!--    byTpye在只有单个引用时才生效，在多个同类型bean的情况下，用byName-->
+<!--    <bean id="userByType" class="com.checker.entity.User" autowire="byType"/>-->
+    <bean id="userByName" class="com.checker.entity.User" autowire="byName"/>
+
+    <bean id="udept" class="com.checker.entity.Dept">
+        <property name="did" value="100"/>
+        <property name="dname" value="name"/>
+    </bean>
+    <bean id="udept2" class="com.checker.entity.Dept">
+        <property name="did" value="100"/>
+        <property name="dname" value="name"/>
+    </bean>
+
+</beans>

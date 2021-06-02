@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    静态工厂-->
+    <bean id="staticUser" class="com.checker.configEntity.StaticFactory"
+          factory-method="getUser">
+        <constructor-arg name="id" value="100"/>
+        <constructor-arg name="name" value="staticUser"/>
+    </bean>
+
+<!--    实例工厂-->
+    <!--配置工厂-->
+    <bean id="instanceUserFactory" class="com.checker.configEntity.InstanceFactory"/>
+    <!--设置工厂-->
+    <bean id="instanceUser" class="com.checker.entity.User"
+          factory-bean="instanceUserFactory" factory-method="getUser">
+        <constructor-arg index="0" value="200"/>
+        <constructor-arg index="1" value="instanceUser"/>
+    </bean>
+
+</beans>

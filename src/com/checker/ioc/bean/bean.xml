@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--    配置工厂bean-->
+    <bean id="myFactoryBean" class="com.checker.entity.MyFactoryBean" />
+
+<!--    配置bean的作用区域-->
+    <!--单例（默认）-->
+    <bean id="singletonUser" class="com.checker.entity.User"/>
+    <!--多例-->
+    <bean id="prototypeUser" class="com.checker.entity.User" scope="prototype"/>
+
+<!--    配置bean的生命周期-->
+    <bean id="life" class="com.checker.entity.Life" init-method="initMethod" destroy-method="destoryMethod">
+        <property name="attr" value="attr"/>
+    </bean>
+
+    <!--配置后置处理器（为所有的bean）-->
+    <bean id="myBeanPost" class="com.checker.configEntity.MyBeanPost"/>
+
+<!--    配置bean的创建顺序-->
+    <bean id="user" class="com.checker.entity.User" depends-on="dept"/>
+    <bean id="dept" class="com.checker.entity.Dept"/>
+
+<!--    配置druid连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/boottest"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456" />
+    </bean>
+
+    <!--通过context引入properties文件并通过${}取值-->
+    <context:property-placeholder location="com/checker/ioc/bean/jdbc.properties"/>
+    <bean id="dataSource1" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${pro.driverClassName}"/>
+        <property name="url" value="${pro.url}"/>
+        <property name="username" value="${pro.username}"/>
+        <property name="password" value="${pro.password}" />
+    </bean>
+
+</beans>
