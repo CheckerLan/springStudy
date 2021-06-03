@@ -7,7 +7,10 @@
 
 
 <!--    扫描所有的包-->
-    <context:component-scan base-package="com.checker"/>
+    <!--use-default-filters关闭默认过滤条件-->
+    <context:component-scan base-package="com.checker.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
 <!--    视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -24,11 +27,11 @@
 <!--    开启mvc注解模式，可解决开启映射请求后普通页面无法访问的问题和defaultServletHandle-->
     <mvc:annotation-driven/>
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!--20m-->
-        <property name="maxUploadSize" value="#{20*1024*1024}"/>
-        <property name="defaultEncoding" value="UTF-8"/>
-        <!--...-->
-    </bean>
+<!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+<!--        &lt;!&ndash;20m&ndash;&gt;-->
+<!--        <property name="maxUploadSize" value="#{20*1024*1024}"/>-->
+<!--        <property name="defaultEncoding" value="UTF-8"/>-->
+<!--        &lt;!&ndash;...&ndash;&gt;-->
+<!--    </bean>-->
 
 </beans>
