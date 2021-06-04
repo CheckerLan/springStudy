@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace，实现的接口全类名-->
+<mapper namespace="com.checker.dao.EmployeeDAO">
+    <!--select用于查询，id方法名，resultType返回值类型,#{取出传入的参数}-->
+    <select id="getEmployeeById" resultType="Employee">
+        SELECT * FROM t_employee
+        WHERE id = #{id}
+    </select>
+
+    <select id="listEmployee" resultType="Employee">
+        SELECT * FROM t_employee
+    </select>
+
+    <select id="listEmployeeForMap" resultType="Employee">
+        SELECT * FROM t_employee
+    </select>
+
+    <!--返回值为行数，返回类型自动设置，无需写-->
+    <update id="updateEmployee" useGeneratedKeys="true" keyProperty="id">
+        UPDATE t_employee
+        SET empname = #{empname}, gender = #{gender}, email = #{email}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteEmployee">
+        DELETE FROM t_employee
+        WHERE id = #{id}
+    </delete>
+
+    <insert id="insertEmployee" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_employee(empname, gender, email)
+        VALUES (#{empname}, #{gender}, #{email})
+    </insert>
+</mapper>
