@@ -31,7 +31,7 @@
         </property>
 
         <!--空值用<null/>标签-->
-        <property name="udept">
+        <property name="dept">
             <null/>
         </property>
     </bean>

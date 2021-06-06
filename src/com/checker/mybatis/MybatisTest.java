@@ -1,7 +1,9 @@
 package com.checker.mybatis;
 
 import com.checker.dao.EmployeeDAO;
+import com.checker.dao.UserDAO;
 import com.checker.entity.Employee;
+import com.checker.entity.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,6 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 public class MybatisTest {
+    SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("config/mybatis-config.xml"));
+
+    public MybatisTest() throws IOException {
+    }
+
     @Test
     public void test() throws IOException {
 
@@ -42,11 +49,7 @@ public class MybatisTest {
     }
 
     @Test
-    public void test4Method() throws IOException {
-        // SqlSessionFactory
-        String resource = "config/mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    public void test4Method() {
 
         // 拿sqlsession
         try (SqlSession sqlSession = sessionFactory.openSession()) {
@@ -70,10 +73,7 @@ public class MybatisTest {
         }
     }
     @Test
-    public void testList() throws IOException {
-        String resource = "config/mybatis-config.xml";
-        InputStream resourceAsStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
+    public void testList() {
 
         try (SqlSession sqlSession = sessionFactory.openSession()){
             EmployeeDAO dao = sqlSession.getMapper(EmployeeDAO.class);
@@ -84,6 +84,28 @@ public class MybatisTest {
             System.out.println(stringEmployeeMap);
 
         }
+    }
 
+    @Test
+    public void testAssociated(){
+
+        try(SqlSession sqlSession = sessionFactory.openSession()){
+            final UserDAO mapper = sqlSession.getMapper(UserDAO.class);
+            final User user = mapper.getUser(1);
+            System.out.println(user);
+
+
+        }
+
+    }
+
+    @Test
+    public void testLazy(){
+        try(SqlSession sqlSession = sessionFactory.openSession()){
+            final UserDAO mapper = sqlSession.getMapper(UserDAO.class);
+            final User user = mapper.getUser(1);
+            System.out.println(user.getUid());
+            System.out.println(user.getDept());
+        }
     }
 }

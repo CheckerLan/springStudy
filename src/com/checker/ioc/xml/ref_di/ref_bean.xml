@@ -14,7 +14,7 @@
     <bean id="user" class="com.checker.entity.User">
         <property name="uid" value="100"/>
         <property name="uname" value="dept"/>
-        <property name="udept">
+        <property name="dept">
             <!--级联赋值-->
             <bean class="com.checker.entity.Dept">
                 <property name="did" value="001"/>
@@ -23,7 +23,7 @@
         </property>
 
         <!--直接通过object.xx进行赋值，需要对应的getter方法-->
-        <property name="udept.did" value="002"/>
+        <property name="dept.did" value="002"/>
     </bean>
 
 </beans>

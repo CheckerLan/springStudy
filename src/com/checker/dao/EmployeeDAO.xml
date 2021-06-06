@@ -11,11 +11,11 @@
         WHERE id = #{id}
     </select>
 
-    <select id="listEmployee" resultType="Employee">
+    <select id="listEmployee" resultType="com.checker.entity.Employee">
         SELECT * FROM t_employee
     </select>
 
-    <select id="listEmployeeForMap" resultType="Employee">
+    <select id="listEmployeeForMap" resultType="com.checker.entity.Employee">
         SELECT * FROM t_employee
     </select>
 

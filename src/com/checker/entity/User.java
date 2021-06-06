@@ -3,9 +3,18 @@ package com.checker.entity;
 public class User {
     int uid;
     String uname;
-    Dept udept;
+    Dept dept;
 
     // 设置setter方法后才可以进行属性注入
+
+    public int getUid() {
+        return uid;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
     public void setUid(int uid) {
         this.uid = uid;
     }
@@ -14,13 +23,13 @@ public class User {
         this.uname = uname;
     }
 
-    public void setUdept(Dept udept) {
-        this.udept = udept;
+    public void setDept(Dept dept) {
+        this.dept = dept;
     }
 
     // 设置getter后可以直接通过udept.xxx赋值
-    public Dept getUdept() {
-        return udept;
+    public Dept getDept() {
+        return dept;
     }
 
     // 默认使用无参构造，如果指定了有参构造方法，则默认的无参会失效
@@ -33,10 +42,10 @@ public class User {
         this.uname = uname;
     }
 
-    public User(int uid, String uname, Dept udept) {
+    public User(int uid, String uname, Dept dept) {
         this.uid = uid;
         this.uname = uname;
-        this.udept = udept;
+        this.dept = dept;
     }
 
     @Override
@@ -44,7 +53,7 @@ public class User {
         return "User{" +
                 "uid=" + uid +
                 ", uname='" + uname + '\'' +
-                ", udept=" + udept +
+                ", udept=" + dept +
                 '}';
     }
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.checker.dao.UserDAO">
+
+    <resultMap id="UserWithDept" type="com.checker.entity.User">
+        <id property="uid" column="uid"/>
+        <result property="uname" column="uanme"/>
+        <result property="dept.did" column="did"/>
+        <result property="dept.dname" column="dname"/>
+    </resultMap>
+
+<!--    自动装配的属性可以不指明-->
+    <resultMap id="UserWithDept1" type="com.checker.entity.User">
+        <!--        <id property="uid" column="uid"/>-->
+        <!--        <result property="uname" column="uanme"/>-->
+        <result property="dept.did" column="did"/>
+        <result property="dept.dname" column="dname"/>
+    </resultMap>
+
+<!--    不能省略任何属性-->
+    <resultMap id="UserWithDept2" type="com.checker.entity.User">
+        <id property="uid" column="uid"/>
+        <result property="uname" column="uname"/>
+<!--        <association property="dept" javaType="com.checker.entity.Dept">-->
+<!--            <id property="did" column="did"/>-->
+<!--            <result property="dname" column="dname"/>-->
+<!--        </association>-->
+        <collection property="dept" ofType="com.checker.entity.Dept" >
+            <id property="did" column="did"/>
+            <result property="dname" column="dname"/>
+        </collection>
+    </resultMap>
+
+    <select id="getUser" resultMap="UserWithDept2">
+        SELECT * FROM user
+        INNER JOIN dept
+        ON user.did = dept.did
+        WHERE user.did = #{id}
+    </select>
+
+    <insert id="insertUser">
+        INSERT INTO user(uname,did)
+        VALUES (uname = #{uname}, did = #{dept.did})
+    </insert>
+
+
+</mapper>
