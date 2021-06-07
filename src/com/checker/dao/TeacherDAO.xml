@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.checker.dao.TeacherDAO">
+
+    <cache/>
+    <select id="getTeacher" resultType="com.checker.entity.Teacher">
+        select * from teacher
+        <where>
+            <if test="tid!=null and !tid.equals('')">
+                tid > #{tid}
+            </if>
+
+            <if test="tname!=null &amp;&amp; !tname.equals(&quot;&quot;)">
+                and tname > #{tname}
+            </if>
+
+            <if test="birthDay!=null &amp;&amp; !birthDay.equals(&quot;&quot;)">
+                and birth_day &lt; #{birthDay}
+            </if>
+        </where>
+    </select>
+
+    <select id="getTeacherWithChoose" resultType="com.checker.entity.Teacher">
+        select * from teacher
+        where
+        <choose>
+            <when test="tid!=null and !tid.equals('')">
+                tid = #{tid}
+            </when>
+            <when test="tname!=null &amp;&amp; !tname.equals(&quot;&quot;)">
+                tname = #{tname}
+            </when>
+            <when test="birthDay!=null &amp;&amp; !birthDay.equals(&quot;&quot;)">
+                birth_day = #{birhDay}
+            </when>
+            <otherwise>
+                1=1
+            </otherwise>
+
+        </choose>
+    </select>
+
+    <select id="getTeacherWithTrim" resultType="com.checker.entity.Teacher">
+        select * from teacher
+        <trim prefix="where" suffixOverrides="and">
+            <if test="tid!=null and !tid.equals('')">
+                tid > #{tid} and
+            </if>
+
+            <if test="tname!=null &amp;&amp; !tname.equals(&quot;&quot;)">
+                tname > #{tname} and
+            </if>
+
+            <if test="birthDay!=null &amp;&amp; !birthDay.equals(&quot;&quot;)">
+                birth_day &lt; #{birthDay} and
+            </if>
+
+        </trim>
+    </select>
+
+    <select id="getTeacherWithForeach" resultType="com.checker.entity.Teacher">
+        select * from teacher
+        where tid in
+        <foreach collection="ids" item="ids_item"
+                 separator="," open="(" close=")">
+            #{ids_item}
+        </foreach>
+    </select>
+
+    <update id="updateTeacher">
+        update teacher
+        <set>
+
+            <if test="tname!=null &amp;&amp; !tname.equals(&quot;&quot;)">
+                tname = #{tname} ,
+            </if>
+
+            <if test="birthDay!=null &amp;&amp; !birthDay.equals(&quot;&quot;)">
+                birth_day = #{birthDay} ,
+            </if>
+
+        </set>
+        where tid = #{tid}
+    </update>
+
+</mapper>
